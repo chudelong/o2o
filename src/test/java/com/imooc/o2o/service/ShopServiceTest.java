@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Date;
 
@@ -27,7 +28,7 @@ public class ShopServiceTest extends BaseTest{
 	private ShopService shopService;
 	
 	@Test
-	public void testAddShop(){
+	public void testAddShop() throws FileNotFoundException{
 		Shop shop = new Shop();
 		PersonInfo owner = new PersonInfo();
 		Area area = new Area();
@@ -39,17 +40,17 @@ public class ShopServiceTest extends BaseTest{
 		shop.setOwner(owner);
 		shop.setArea(area);
 		shop.setShopCategory(shopCategory);
-		shop.setShopName("测试的店铺3");
-		shop.setShopDesc("test3");
-		shop.setShopAddr("test3");
+		shop.setShopName("测试的店铺33");
+		shop.setShopDesc("test33");
+		shop.setShopAddr("test33");
 		shop.setPhone("test3");
 		shop.setCreateTime(new Date());
 		shop.setEnableStatus(ShopStateEnum.CHECK.getState());
 		shop.setAdvice("审核中");
 		
 		File shopImg = new File("/Users/chudelong/Desktop/xiaohuangren.jpg");
-		
-		ShopException se = shopService.addShop(shop, shopImg);
+		InputStream is = new FileInputStream(shopImg);
+		ShopException se = shopService.addShop(shop, is, shopImg.getName());
 		assertEquals(ShopStateEnum.CHECK.getState(), se.getState());
 	}
 
