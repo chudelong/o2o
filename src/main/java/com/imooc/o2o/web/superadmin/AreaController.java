@@ -29,6 +29,7 @@ public class AreaController {
 	private Map<String, Object> listArea() {
 		logger.info("===start===");
 		long startTime = System.currentTimeMillis();
+		
 		Map<String, Object> modelMap = new HashMap<>();
 		List<Area> list = new ArrayList<>();
 		try {
@@ -40,6 +41,7 @@ public class AreaController {
 			modelMap.put("success", false);
 			modelMap.put("errMsg", e.toString());
 		}
+		
 		logger.error("test error");
 		long endTime = System.currentTimeMillis();
 		logger.debug("costTime:[{}ms]", endTime - startTime);

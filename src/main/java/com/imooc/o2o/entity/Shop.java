@@ -9,15 +9,10 @@ public class Shop {
 	private String shopDesc;
 	private String shopAddr;
 	private String phone;
+	// 店铺门面图片地址
 	private String shopImg;
 	private Integer priority;
 	private Date createTime;
-	public Integer getPriority() {
-		return priority;
-	}
-	public void setPriority(Integer priority) {
-		this.priority = priority;
-	}
 	private Date lastEditTime;
 	// 1.不可用 0.审核中 1.可用
 	private Integer enableStatus;
@@ -28,6 +23,13 @@ public class Shop {
 	private PersonInfo owner;
 	private ShopCategory shopCategory;
 	
+	
+	public Integer getPriority() {
+		return priority;
+	}
+	public void setPriority(Integer priority) {
+		this.priority = priority;
+	}
 	public Long getShopId() {
 		return shopId;
 	}
