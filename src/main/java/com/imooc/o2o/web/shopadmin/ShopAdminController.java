@@ -6,11 +6,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * 店铺管理操作
+ * 
  * @author chudelong
  *
  */
 @Controller
-@RequestMapping(value = "shopadmin", method= {RequestMethod.GET})
+@RequestMapping(value = "shopadmin", method = { RequestMethod.GET })
 public class ShopAdminController {
 
 	@RequestMapping(value = "shopoperation")

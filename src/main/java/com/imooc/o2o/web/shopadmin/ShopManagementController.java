@@ -33,6 +33,7 @@ import exceptions.ShopOperationException;
 
 /**
  * 注册店铺操作
+ * 
  * @author chudelong
  *
  */
@@ -44,40 +45,40 @@ public class ShopManagementController {
 
 	@RequestMapping(value = "/registershop", method = RequestMethod.POST)
 	@ResponseBody
-	private Map<String, Object> registerShop(HttpServletRequest request){
+	private Map<String, Object> registerShop(HttpServletRequest request) {
 		Map<String, Object> modelMap = new HashMap<>();
-		//1.接收并转化相应的参数，包括店铺信息以及图片
+		// 1.接收并转化相应的参数，包括店铺信息以及图片
 		String shopStr = HttpServletRequestUtil.getString(request, "shopStr");
 		ObjectMapper mapper = new ObjectMapper();
 		Shop shop = null;
 		try {
 			shop = mapper.readValue(shopStr, Shop.class);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			modelMap.put("success", false);
 			modelMap.put("errMsg", e.getMessage());
 			return modelMap;
 		}
-		
+
 		// 店铺门面图片地址
 		CommonsMultipartFile shopImg = null;
-		CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
-		if(commonsMultipartResolver.isMultipart(request)) {
+		CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver(
+				request.getSession().getServletContext());
+		if (commonsMultipartResolver.isMultipart(request)) {
 			MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
-			shopImg 
-			= (CommonsMultipartFile) multipartHttpServletRequest.getFile("shopImg");
+			shopImg = (CommonsMultipartFile) multipartHttpServletRequest.getFile("shopImg");
 		} else {
 			modelMap.put("success", false);
 			modelMap.put("errMsg", "上传图片不能为空");
 			return modelMap;
 		}
-		
-		//2.注册店铺
-		if(shop != null && shopImg != null) {
+
+		// 2.注册店铺
+		if (shop != null && shopImg != null) {
 			PersonInfo owner = new PersonInfo();
 			// Session TODO
 			owner.setUserId(1l);
 			shop.setOwner(owner);
-			
+
 //			File shopImgFile = new File(PathUtil.getImgBasePath() + ImageUtil.getRandomFileName());
 //			try {
 //				shopImgFile.createNewFile();
@@ -96,7 +97,7 @@ public class ShopManagementController {
 			ShopException se;
 			try {
 				se = shopService.addShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
-				if(se.getState() == ShopStateEnum.CHECK.getState()) {
+				if (se.getState() == ShopStateEnum.CHECK.getState()) {
 					modelMap.put("success", true);
 				} else {
 					modelMap.put("success", false);
@@ -116,7 +117,7 @@ public class ShopManagementController {
 			return modelMap;
 		}
 	}
-	
+
 //	//将CommonsMultipartFile转换成File
 //	private static void inputStreamToFile(InputStream ins, File file) {
 //		FileOutputStream os = null;
