@@ -31,6 +31,11 @@ import com.imooc.o2o.util.PathUtil;
 
 import exceptions.ShopOperationException;
 
+/**
+ * 注册店铺操作
+ * @author chudelong
+ *
+ */
 @Controller
 @RequestMapping("/shopadmin")
 public class ShopManagementController {
