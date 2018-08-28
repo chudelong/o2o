@@ -30,7 +30,9 @@ public class AreaController {
 		logger.info("===start===");
 		long startTime = System.currentTimeMillis();
 		
+		//用于存放方法的返回值
 		Map<String, Object> modelMap = new HashMap<>();
+		//用来获取service层返回的区域列表
 		List<Area> list = new ArrayList<>();
 		try {
 			list = areaService.getAreaList();
