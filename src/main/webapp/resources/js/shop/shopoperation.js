@@ -48,7 +48,7 @@ $(function() {
 					return !this.selected;
 				}).data('id')	
 			};
-			var shopImg = $('shop-img')[0].files[0];
+			var shopImg = $('#shop-img')[0].files[0];
 			var formData = new FormData();
 			formData.append('shopImg', shopImg);
 			formData.append('shopStr', JSON.stringify(shop));
@@ -62,18 +62,18 @@ $(function() {
 			/**
 			 * 将数据提交到后台
 			 */
-			$ajax({
+			$.ajax({
 				url : registerShopUrl,
-				type :'POST',
+				type : 'POST',
 				data : formData,
 				contentType : false,
-				proceesData : false,
+				processData : false,
 				cache : false,
-				success : function(data){
-					if(data.success){
+				success : function(data) {
+					if (data.success) {
 						$.toast('提交成功！');
 					} else {
-						$.toast('提交失败' + data.errMsg);
+						$.toast('提交失败！' + data.errMsg);
 					}
 					$('#captcha_img').click();
 				}
