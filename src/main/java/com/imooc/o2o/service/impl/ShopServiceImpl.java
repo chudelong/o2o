@@ -72,6 +72,18 @@ public class ShopServiceImpl implements ShopService{
 		
 	}
 
+	@Override
+	public Shop getByShopId(long shopId) {
+		return shopDao.queryByShopId(shopId);
+	}
+
+	@Override
+	public ShopException modifyShop(Shop shop, InputStream shopImgInputStream, String fileName)
+			throws ShopOperationException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
 
 
