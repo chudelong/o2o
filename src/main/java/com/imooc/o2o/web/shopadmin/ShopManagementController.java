@@ -54,31 +54,54 @@ public class ShopManagementController {
 	@Autowired
 	private AreaService areaService;
 
-	@RequestMapping(value="/getshopinitinfo", method = RequestMethod.GET)
+	@RequestMapping(value="/getshopbyid", method=RequestMethod.GET)
 	@ResponseBody
-	private Map<String, Object> getShopInitInfo(){
+	private Map<String, Object> getShopById(HttpServletRequest request){
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		Long shopId = HttpServletRequestUtil.getLong(request, "shopId");
+		if(shopId > -1) {
+			try {
+			Shop shop = shopService.getByShopId(shopId);
+			List<Area> areaList = areaService.getAreaList();
+			modelMap.put("shop", shop);
+			modelMap.put("areaList", areaList);
+			modelMap.put("success", true);
+			}catch(Exception e) {
+				modelMap.put("success", false);
+				modelMap.put("errMsg", e.toString());
+			}
+		} else {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", "empty shopId");
+		}
+		return modelMap;
+	}
+
+	@RequestMapping(value = "/getshopinitinfo", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String, Object> getShopInitInfo() {
 		// 定义Map接收返回值变量
 		Map<String, Object> modelMap = new HashMap<>();
 		List<ShopCategory> shopCategoryList = new ArrayList<>();
 		List<Area> areaList = new ArrayList<>();
 		try {
-			shopCategoryList =shopCategoryService.getShopCategoryList(new ShopCategory());
+			shopCategoryList = shopCategoryService.getShopCategoryList(new ShopCategory());
 			areaList = areaService.getAreaList();
 			modelMap.put("shopCategoryList", shopCategoryList);
 			modelMap.put("areaList", areaList);
 			modelMap.put("success", true);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			modelMap.put("success", false);
 			modelMap.put("errMsg", e.getMessage());
 		}
 		return modelMap;
 	}
-	
+
 	@RequestMapping(value = "/registershop", method = RequestMethod.POST)
 	@ResponseBody
 	private Map<String, Object> registerShop(HttpServletRequest request) {
 		Map<String, Object> modelMap = new HashMap<>();
-		if(!CodeUtil.checkVerifyCode(request)) {
+		if (!CodeUtil.checkVerifyCode(request)) {
 			modelMap.put("success", false);
 			modelMap.put("errMsg", "输入了错误的验证码");
 		}
