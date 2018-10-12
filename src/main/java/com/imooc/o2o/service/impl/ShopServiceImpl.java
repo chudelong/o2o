@@ -3,6 +3,7 @@ package com.imooc.o2o.service.impl;
 import java.io.File;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import com.imooc.o2o.entity.Shop;
 import com.imooc.o2o.enums.ShopStateEnum;
 import com.imooc.o2o.service.ShopService;
 import com.imooc.o2o.util.ImageUtil;
+import com.imooc.o2o.util.PageCalculator;
 import com.imooc.o2o.util.PathUtil;
 
 import exceptions.ShopOperationException;
@@ -24,6 +26,23 @@ public class ShopServiceImpl implements ShopService {
 	@Autowired
 	private ShopDao shopDao;
 
+	public ShopException getShopList(Shop shopCondition, int pageIndex, int pageSize) {
+		//将页码转换成行码
+		int rowIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
+		//依据查询条件，调用dao层返回相关的店铺列表
+		List<Shop> shopList = shopDao.queryShopList(shopCondition, rowIndex, pageSize);
+		//依据相同的查询条件，返回店铺总数
+		int count = shopDao.queryShopCount(shopCondition);
+		ShopException se = new ShopException();
+		if (shopList != null) {
+			se.setShopList(shopList);
+			se.setCount(count);
+		} else {
+			se.setState(ShopStateEnum.INNER_ERROR.getState());
+		}
+		return se;
+	}
+	
 	@Override
 	@Transactional
 	public ShopException addShop(Shop shop, InputStream shopImgInputStream, String fileName)
@@ -108,5 +127,7 @@ public class ShopServiceImpl implements ShopService {
 		}
 
 	}
+
+	
 
 }
