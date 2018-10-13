@@ -6,19 +6,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.imooc.o2o.BaseTest;
 import com.imooc.o2o.entity.ProductCategory;
+import com.imooc.o2o.entity.Shop;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ProductCategoryDaoTest extends BaseTest {
 
 	@Autowired
 	private ProductCategoryDao productCategoryDao;
 
 	@Test
-	public void testQueryByShopId() {
+	public void testBQueryByShopId() {
 		long shopId = 1;
 		List<ProductCategory> productCategory = productCategoryDao.queryProductCategoryList(shopId);
 		System.out.println("该店铺自定义类别数为：" + productCategory.size());
@@ -45,4 +49,28 @@ public class ProductCategoryDaoTest extends BaseTest {
 		int effectedNum = productCategoryDao.batchInsertProductCategory(productCategoryList);
 		assertEquals(2, effectedNum);
 	}
+	
+	@Test
+	public void testCDeleteProductCategory() {
+		long shopId = 1;
+		List<ProductCategory> productCategoryList = productCategoryDao.queryProductCategoryList(shopId);
+		for(ProductCategory pc : productCategoryList) {
+			if("商品类别1".equals(pc.getProductCategoryName()) || "商品类别2".equals(pc.getProductCategoryName())) {
+				int effectNum = productCategoryDao.deleteProductCategory(pc.getProductCategoryId(), shopId);
+				assertEquals(1, effectNum);
+			}
+		}
+		
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
