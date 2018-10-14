@@ -7,7 +7,7 @@ public class ProductImg {
 	private Long productImgId;
 	private String imgAddr;
 	private String imgDesc;
-	private Integer prioriry;
+	private Integer priority;
 	private Date createTime;
 	private Long productId;
 	
@@ -29,11 +29,11 @@ public class ProductImg {
 	public void setImgDesc(String imgDesc) {
 		this.imgDesc = imgDesc;
 	}
-	public Integer getPrioriry() {
-		return prioriry;
+	public Integer getPriority() {
+		return priority;
 	}
-	public void setPrioriry(Integer prioriry) {
-		this.prioriry = prioriry;
+	public void setPriority(Integer prioriry) {
+		this.priority = priority;
 	}
 	public Date getCreateTime() {
 		return createTime;

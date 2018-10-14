@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.imooc.o2o.dao.ShopCategoryDao;
-import com.imooc.o2o.dto.ShopException;
+import com.imooc.o2o.dto.ShopExecution;
 import com.imooc.o2o.entity.Shop;
 import com.imooc.o2o.entity.ShopCategory;
 import com.imooc.o2o.service.ShopCategoryService;

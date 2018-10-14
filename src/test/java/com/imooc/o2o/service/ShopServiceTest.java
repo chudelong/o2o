@@ -15,7 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.imooc.o2o.BaseTest;
-import com.imooc.o2o.dto.ShopException;
+import com.imooc.o2o.dto.ImageHolder;
+import com.imooc.o2o.dto.ShopExecution;
 import com.imooc.o2o.entity.Area;
 import com.imooc.o2o.entity.PersonInfo;
 import com.imooc.o2o.entity.Shop;
@@ -34,7 +35,7 @@ public class ShopServiceTest extends BaseTest{
 		ShopCategory sc = new ShopCategory();
 		sc.setShopCategoryId(1l);
 		shopCondition.setShopCategory(sc);
-		ShopException se = shopService.getShopList(shopCondition, 1, 2);
+		ShopExecution se = shopService.getShopList(shopCondition, 1, 2);
 		System.out.println("店铺列表数为：" + se.getShopList().size());
 		System.out.println("店铺总数为：" + se.getCount());
 	}
@@ -47,7 +48,8 @@ public class ShopServiceTest extends BaseTest{
 		shop.setShopName("修改后的店铺名称");
 		File shopImg = new File("/Users/chudelong/Desktop/dabai.jpg");
 		InputStream is = new FileInputStream(shopImg);
-		ShopException shopException = shopService.modifyShop(shop, is, "dabai.jpg");
+		ImageHolder imageHolder = new ImageHolder("dabai.jpg", is);
+		ShopExecution shopException = shopService.modifyShop(shop, imageHolder);
 		System.out.println("新的图片地址为：" + shopException.getShop().getShopImg());
 	}
 	
@@ -75,7 +77,8 @@ public class ShopServiceTest extends BaseTest{
 		
 		File shopImg = new File("/Users/chudelong/Desktop/xiaohuangren.jpg");
 		InputStream is = new FileInputStream(shopImg);
-		ShopException se = shopService.addShop(shop, is, shopImg.getName());
+		ImageHolder imageHolder = new ImageHolder(shopImg.getName(), is);
+		ShopExecution se = shopService.addShop(shop, imageHolder);
 		assertEquals(ShopStateEnum.CHECK.getState(), se.getState());
 	}
 
