@@ -1,4 +1,4 @@
-package com.imooc.o2o.util.wechat;
+package com.imooc.o2o.util.weixin;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

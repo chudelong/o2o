@@ -1,4 +1,4 @@
-package com.imooc.o2o.util.wechat;
+package com.imooc.o2o.web.wechat;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.imooc.o2o.util.weixin.SignUtil;
 
 @Controller
 //一会在设置的URL里面就设置上这个路由
