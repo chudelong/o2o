@@ -58,10 +58,7 @@ public class WechatLoginController {
                 e.printStackTrace();
             }
         }
-        // ======todo begin======
-        // 前面咱们获取到openId后，可以通过它去数据库判断该微信帐号是否在我们网站里有对应的帐号了，
-        // 没有的话这里可以自动创建上，直接实现微信与咱们网站的无缝对接。
-        // ======todo end======
+ 
         if (user != null) {
             // 获取到微信验证的信息后返回到指定的路由（需要自己设定）
             return "frontend/index";
