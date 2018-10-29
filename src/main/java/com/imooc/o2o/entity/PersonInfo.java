@@ -20,6 +20,8 @@ public class PersonInfo {
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
+	
+	
 	public String getName() {
 		return name;
 	}
