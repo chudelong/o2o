@@ -13,7 +13,7 @@ import java.util.Arrays;
 public class SignUtil {
 	// 与接口配置信息中的Token要一致
 	private static String token = "myo2o";
-	
+
 	/**
 	 * 验证签名
 	 * 
@@ -27,12 +27,12 @@ public class SignUtil {
 		// 将token、timestamp、nonce三个参数进行字典序排序
 		Arrays.sort(arr);
 		StringBuilder content = new StringBuilder();
-		for(int i = 0; i <  arr.length; i++) {
+		for (int i = 0; i < arr.length; i++) {
 			content.append(arr[i]);
 		}
 		MessageDigest md = null;
 		String tmpStr = null;
-		
+
 		try {
 			md = MessageDigest.getInstance("SHA-1");
 			// 将三个参数字符串拼接成一个字符串进行sha1加密
@@ -41,7 +41,7 @@ public class SignUtil {
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
-		
+
 		content = null;
 		// 将sha1加密后的字符串可与signature对比，标识该请求来源于微信
 		return tmpStr != null ? tmpStr.equals(signature.toUpperCase()) : false;
@@ -49,13 +49,14 @@ public class SignUtil {
 
 	/**
 	 * 将字节数组转换为十六进制字符串
+	 * 
 	 * @param digest
 	 * @return
 	 */
 	private static String byteToStr(byte[] byteArray) {
 		String strDigest = "";
-		for(int i = 0; i < byteArray.length; i++) {
-			strDigest  = strDigest + byteToStr(byteArray[i]);
+		for (int i = 0; i < byteArray.length; i++) {
+			strDigest = strDigest + byteToStr(byteArray[i]);
 		}
 		return strDigest;
 	}
@@ -71,25 +72,8 @@ public class SignUtil {
 		char[] tempArr = new char[2];
 		tempArr[0] = Digit[(mByte >>> 4) & 0X0F];
 		tempArr[1] = Digit[mByte & 0X0F];
-		
+
 		String s = new String(tempArr);
 		return s;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
